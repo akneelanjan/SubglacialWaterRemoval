@@ -224,7 +224,7 @@ basaltauc_Canal50kPaY1010 = basal_tau_c_specific;
 The output filename is constructed as:
 
 ```matlab
-filename = fullfile("ResultsMatFiles","OffTarget_Canal50kPa_Blip1333Pa_XSuction",string(Xsuction),".mat");
+filename = fullfile("ResultsMatFiles","OffTarget_Canal50kPa_Blip1333Pa_XSuction"+string(Xsuction)+".mat");
 ```
 
 To save a regenerated result, make sure the final `save(filename)` command is active.
