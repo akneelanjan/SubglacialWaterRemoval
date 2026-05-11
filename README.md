@@ -31,10 +31,10 @@ The recommended workflow is:
 - `WaterRemoval_OnTarget_Only1CentralCanal.m`  
   Optional test script for an on-target case with only one central canal.
 
-- `FormalFigurePlotting_3_4_5.m`  
+- `FormalFigure2Plotting_SIFigures.m`  
   Plotting script for the on-target drainage-mode comparison figures.
 
-- `FormalFigure6PlottingOffTarget.m`  
+- `FormalFigure3PlottingOffTarget.m`  
   Plotting script for the off-target spatial-imprecision figure.
 
 ### Folders and supporting files
@@ -232,8 +232,8 @@ To save a regenerated result, make sure the final `save(filename)` command is ac
 After the relevant output `.mat` files exist in `ResultsMatFiles/`, run:
 
 ```matlab
-FormalFigurePlotting_3_4_5
-FormalFigure6PlottingOffTarget
+FormalFigure2Plotting_SIFigures
+FormalFigure3PlottingOffTarget
 ```
 
 The first script loads the on-target canal, R-channel, linked-cavity, and water-film cases. The second script loads the on-target canal baseline/reduction cases and the off-target offset cases.
