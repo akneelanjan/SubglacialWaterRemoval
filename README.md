@@ -265,7 +265,7 @@ Although input and output `.mat` files are provided for all considered cases, we
   Suckale, J. and Elsworth, C. W.: An antiplane strain model for evaluating shear-margin stability (Ortholine v1.0), EGUsphere [preprint], https://doi.org/10.5194/egusphere-2026-67, 2026.
   ```
   Original Ortholine v1.0 repository: https://github.com/coopere/InstituteIceStream2D
-- For use of this modified hydrology/intervention code, please also cite the associated basal-anchoring manuscript once available.
+- For use of this hydrology intervention code, please also cite the associated PNAS manuscript once available.
 - CVX optimization toolbox developers
 - distmesh2d developers
 - cbrewer2 developers
