@@ -1,5 +1,7 @@
 # Subglacial Water Removal
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxxx.svg)](https://doi.org/10.5281/zenodo.20128320)
+
 This repository contains MATLAB code for simulating how localized water removal from the subglacial drainage system modifies basal drag and glacier speed for an idealized mountain glacier sliding through a hard-rock valley with sediment accumulated in the topographic low. The code builds on the coupled thermomechanical free-boundary model of Ortholine v1.0 and implements mixed-bed drag and hydrology-informed basal-strength parameterizations for different subglacial drainage modes.
 
 Water removal is tested in two scenarios:
@@ -265,7 +267,8 @@ Although input and output `.mat` files are provided for all considered cases, we
   Suckale, J. and Elsworth, C. W.: An antiplane strain model for evaluating shear-margin stability (Ortholine v1.0), EGUsphere [preprint], https://doi.org/10.5194/egusphere-2026-67, 2026.
   ```
   Original Ortholine v1.0 repository: https://github.com/coopere/InstituteIceStream2D
-- For use of this hydrology intervention code, please also cite the associated PNAS manuscript once available.
+- This repository is archived on Zenodo: https://doi.org/10.5281/zenodo.20128320
+  For use of this hydrology intervention code, please also cite the associated manuscript once available.
 - CVX optimization toolbox developers
 - distmesh2d developers
 - cbrewer2 developers
