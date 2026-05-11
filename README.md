@@ -1,10 +1,11 @@
 # Subglacial Water Removal
 
-This repository contains MATLAB code for simulating how localized water removal from the subglacial drainage system modifies basal drag and glacier speed for an idealized mountain glacier sliding through a hard-rock valley with sediment accumulated in the topographic low. The code builds on the coupled thermomechanical free-boundary model of Ortholine v1.0, implements mixed bed drag and hydrology-informed basal-strength parameterizations for different subglacial drainage modes.
+This repository contains MATLAB code for simulating how localized water removal from the subglacial drainage system modifies basal drag and glacier speed for an idealized mountain glacier sliding through a hard-rock valley with sediment accumulated in the topographic low. The code builds on the coupled thermomechanical free-boundary model of Ortholine v1.0 and implements mixed-bed drag and hydrology-informed basal-strength parameterizations for different subglacial drainage modes.
 
 Water removal is tested in two scenarios:
-1. **On-target flowrate reduction:** water is removed from the selected drainage mode with exact spatial precision, corresponding to zero offset, \(y_{\mathrm{off}} = 0\).
-2. **Off-target flux reduction:** water is removed near a sedimentary canal, but the borehole misses the desired target by a non-zero offset, \(y_{\mathrm{off}} \neq 0\).
+
+1. **On-target flowrate reduction:** water is removed from the selected drainage mode with exact spatial precision, corresponding to zero offset, `y_off = 0`.
+2. **Off-target flux reduction:** water is removed near a sedimentary canal, but the borehole misses the desired target by a non-zero offset, `y_off ≠ 0`.
 
 ## Workflow
 
@@ -17,105 +18,255 @@ The recommended workflow is:
 5. Save model outputs in `ResultsMatFiles/`.
 6. Use the plotting scripts to reproduce the manuscript and supplementary figures.
 
-## Dependencies
+## Files
 
-Install or make available the following dependencies before running the model:
+### Executable scripts
 
-1. **CVX for MATLAB**  
-   Required for the convex optimization solve. Install CVX first and run:
+- `WaterRemoval_OnTarget.m`  
+  Main script for on-target flowrate-reduction experiments. It loads one drainage-mode parameter file from `InputParameterFiles/`, solves the coupled thermomechanical model, and saves the result as `HighRes_<modeCase>.mat` in `ResultsMatFiles/`.
 
-   ```matlab
-   cvx_setup
-   ```
+- `WaterRemoval_OffTarget.m`  
+  Main script for off-target flux-reduction experiments near a sedimentary canal. It compares different offsets by changing the suction location `Xsuction`.
 
-2. **DistMesh2D**  
-   Required for unstructured triangular mesh generation. This repository includes DistMesh-related files in:
+- `WaterRemoval_OnTarget_Only1CentralCanal.m`  
+  Optional test script for an on-target case with only one central canal.
 
-   ```text
-   DistMesh-main/
-   ```
+- `FormalFigurePlotting_3_4_5.m`  
+  Plotting script for the on-target drainage-mode comparison figures.
 
-3. **cbrewer2**  
-   Required for ColorBrewer colormaps used in plotting. This repository includes:
+- `FormalFigure6PlottingOffTarget.m`  
+  Plotting script for the off-target spatial-imprecision figure.
 
-   ```text
-   cbrewer2/
-   ```
-
-4. **MATLAB**  
-   The scripts are written for MATLAB and use `.mat` input/output files.
-
-Before running the scripts, make sure the relevant dependency folders are on the MATLAB path.
-
-## Repository structure
+### Folders and supporting files
 
 ```text
-ParameterGeneratorCodes/                 Generates hydrology parameter files
-InputParameterFiles/                     Stores generated input parameter .mat files
-ResultsMatFiles/                         Stores simulation output .mat files
-DistMesh-main/                           DistMesh2D mesh-generation utilities
-cbrewer2/                                ColorBrewer plotting utility
-WaterRemoval_OnTarget.m                  Main script for on-target flowrate reduction
-WaterRemoval_OffTarget.m                 Main script for off-target flux reduction
-FormalFigurePlotting_3_4_5.m             Main plotting script for on-target results
-FormalFigure6PlottingOffTarget.m         Plotting script for off-target results
+ParameterGeneratorCodes/      Generates hydrology-informed input .mat files
+InputParameterFiles/          Stores generated input parameter .mat files
+ResultsMatFiles/              Stores simulation output .mat files
+DistMesh-main/                DistMesh2D mesh-generation utilities
+cbrewer2/                     ColorBrewer plotting utility
+iceColorMap.mat               Colormap for temperature plots
+setFontSize.m                 Helper function for figure formatting
 ```
 
-## Running on-target flowrate reduction
+## Dependencies
 
-Use:
+Install or make available the following before running the model.
+
+### 1. MATLAB
+
+The scripts are written in MATLAB and use `.mat` input/output files.
+
+### 2. CVX for MATLAB
+
+CVX is required for solving the convex optimization problem. Before running any script, first download and install CVX from: http://cvxr.com/cvx/
+
+or from the CVX GitHub release page: https://github.com/cvxr/CVX/releases
+
+Install CVX in a clean, permanent location outside this repository. Then open MATLAB, go to the CVX folder, and run:
+
+```matlab
+cvx_setup
+savepath
+cvx_version
+```
+
+A good default location is:
+
+```text
+macOS/Linux: ~/MATLAB/cvx
+Windows:     C:\Users\<username>\Documents\MATLAB\cvx
+```
+
+Avoid using a copied CVX folder inside this repository, because it may be incomplete or incompatible with the current computer.
+
+### 3. cbrewer2
+
+`cbrewer2` is required for perceptually balanced ColorBrewer colormaps used in plotting. Before running any script, download and install cbrewer2 from the MATLAB File Exchange page: https://www.mathworks.com/matlabcentral/fileexchange/58350-cbrewer2
+
+
+Following installation, this repository includes cbrewer2-related supporting files in:
+
+```text
+cbrewer2/
+```
+
+### 4. DistMesh2D
+
+DistMesh2D is required for unstructured triangular mesh generation. This repository includes DistMesh-related files in:
+
+```text
+DistMesh-main/
+```
+
+Original DistMesh resource: http://persson.berkeley.edu/distmesh/
+Latest DistMesh v1.2 version: https://github.com/popersson/DistMesh
+
+
+### Add paths in MATLAB
+
+From the repository root, run:
+
+```matlab
+addpath("DistMesh-main")
+addpath(fullfile("DistMesh-main","src"))
+addpath(fullfile("DistMesh-main","examples"))
+addpath("cbrewer2")
+```
+
+## Usage
+
+### 1. Generate input parameter files
+
+The parameter-generation scripts are stored in:
+
+```text
+ParameterGeneratorCodes/
+```
+
+Run them from inside that folder because the scripts save files to `../InputParameterFiles/`.
+
+```matlab
+cd ParameterGeneratorCodes
+
+CreateParameterMATFiles_Canal
+CreateParameterMATFiles_RChannel
+CreateParameterMATFiles_LinkedCavity
+CreateParameterMATFiles_WaterFilm
+
+cd ..
+```
+
+Each generator creates a `.mat` file containing the basal-drag functions, hydrology parameters, flowrate label, slope, and plotting colors for one drainage-mode case.
+
+To generate a different case, edit the relevant effective-pressure/flowrate values inside the generator script before running it again. The main cases are:
+
+```text
+Canal:        N_canal_center = 50, 100, 150, 200 kPa
+R-channel:    N_ch = 550, 520 kPa
+Linked cavity: N_lc = 250, 500 kPa
+Water film:   N_wfmod = 4000, 4444, 5333, 8000 Pa
+```
+
+The generated files are saved in `InputParameterFiles/` with names such as:
+
+```text
+Canal_50kPa.mat
+RChannel_550kPa.mat
+LinkedCavity_250kPa.mat
+WaterFilm_4000Pa.mat
+```
+
+### 2. Run on-target flowrate reduction
+
+From the repository root, open:
+
+```text
+WaterRemoval_OnTarget.m
+```
+
+Choose exactly one input case by uncommenting the corresponding `load(...)` command. For example:
+
+```matlab
+load(fullfile("InputParameterFiles","Canal_150kPa.mat"));
+modeCase = "Canal_"+string(N_canal_center/1000)+"kPa";
+```
+
+Then run:
 
 ```matlab
 WaterRemoval_OnTarget
 ```
 
-This script compares the glacier response across drainage modes, including sedimentary canals, R-channels, linked cavities, and water films.
+The script generates the mesh, solves the coupled thermomechanical model, plots the 2D ice-speed field, surface-speed profile, temperature field, and basal-drag profile, and constructs an output filename:
 
-For each run:
+```matlab
+filename = fullfile("ResultsMatFiles","HighRes_"+modeCase+".mat");
+```
 
-1. Load the desired drainage-mode parameter file from `InputParameterFiles/`.
-2. Run `WaterRemoval_OnTarget.m`.
-3. Save the resulting case in `ResultsMatFiles/`.
+To save a regenerated result, make sure the final `save(filename)` command is active.
 
-## Running off-target flux reduction
+### 3. Run off-target flux reduction
 
-Use:
+From the repository root, open:
+
+```text
+WaterRemoval_OffTarget.m
+```
+
+Set the suction location:
+
+```matlab
+Xsuction = 1010; % [m]
+```
+
+The main offset cases are:
+
+```text
+Xsuction = 1010, 1020, 1050, 1100 m
+```
+
+Then run:
 
 ```matlab
 WaterRemoval_OffTarget
 ```
 
-This script tests off-target water-film flux reduction near a sedimentary canal by comparing different lateral offsets from the intended target.
+For each offset, update the matching diagnostic variable names near the bottom of the script, for example:
 
-For each run:
+```matlab
+IceFluxXSuction1010 = trapz(x_surf,u_surf);
+basaltauc_Canal50kPaY1010 = basal_tau_c_specific;
+```
 
-1. Set the desired offset/suction location in `WaterRemoval_OffTarget.m`.
-2. Run the script.
-3. Save the resulting case in `ResultsMatFiles/`.
+The output filename is constructed as:
 
-## Plotting manuscript figures
+```matlab
+filename = fullfile("ResultsMatFiles","OffTarget_Canal50kPa_Blip1333Pa_XSuction",string(Xsuction),".mat");
+```
 
-Use the plotting scripts after the relevant `.mat` files have been generated:
+To save a regenerated result, make sure the final `save(filename)` command is active.
+
+### 4. Plot manuscript and SI figures
+
+After the relevant output `.mat` files exist in `ResultsMatFiles/`, run:
 
 ```matlab
 FormalFigurePlotting_3_4_5
 FormalFigure6PlottingOffTarget
 ```
 
-These scripts load saved results from `ResultsMatFiles/` and generate the formal figures used for the manuscript and supplementary information.
+The first script loads the on-target canal, R-channel, linked-cavity, and water-film cases. The second script loads the on-target canal baseline/reduction cases and the off-target offset cases.
+
+## Output
+
+The main simulation scripts generate:
+
+1. 2D ice-speed field
+2. Ice-surface speed profile
+3. 2D temperature field
+4. Basal-drag profile
+5. Saved MATLAB workspace/output variables in `ResultsMatFiles/`
+
+Although input and output `.mat` files are provided for all considered cases, we strongly recommend running the full workflow locally, from parameter generation to input-file creation, simulation, saving, and plotting, to avoid directory/path issues.
 
 ## Notes
 
 - Paths are written using `fullfile(...)` where possible for cross-platform compatibility across Windows, macOS, and Linux.
-- Although input and output `.mat` files are provided for all considered cases, we strongly recommend running the full workflow locally, from parameter generation to input-file creation, simulation, saving, and plotting, to avoid directory/path issues.
 - Third-party dependencies retain their original licenses and citation requirements.
+- CVX should be installed separately and not copied into this repository.
 
-## Citation and acknowledgment
+## Citation and Acknowledgment
 
-This repository modifies and extends the Ortholine v1.0 modeling framework for subglacial water-removal experiments. Please cite the associated manuscript when available.
-
-The original Ortholine v1.0 repository is: https://github.com/coopere/InstituteIceStream2D
+- Ortholine v1.0 developers. Please cite the associated manuscript when available. The original Ortholine v1.0 repository is: https://github.com/coopere/InstituteIceStream2D
+- CVX optimization toolbox developers
+- distmesh2d developers
+- cbrewer2 developers
 
 ## License
 
 This repository is released under the GNU General Public License v3.0. See `LICENSE` for details.
+
+## Contact
+
+For questions, please contact the authors at akneelanjan@gmail.com.
