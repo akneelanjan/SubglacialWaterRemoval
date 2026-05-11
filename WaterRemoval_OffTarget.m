@@ -409,5 +409,5 @@ basaltauc_Canal50kPaY1010 = basal_tau_c_specific; % for Xsuction = 1010 m
 
 %% Save to .mat file
 filepath = "ResultsMatFiles";
-filename = fullfile(filepath,"OffTarget_Canal50kPa_Blip1333Pa_XSuction",string(Xsuction),".mat");
+filename = fullfile(filepath,"OffTarget_Canal50kPa_Blip1333Pa_XSuction"+string(Xsuction)+".mat");
 %save(filename)
