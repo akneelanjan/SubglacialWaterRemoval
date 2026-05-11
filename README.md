@@ -99,8 +99,8 @@ DistMesh2D is required for unstructured triangular mesh generation. This reposit
 DistMesh-main/
 ```
 
-Original DistMesh resource: http://persson.berkeley.edu/distmesh/
-Latest DistMesh v1.2 version: https://github.com/popersson/DistMesh
+- Original DistMesh resource: http://persson.berkeley.edu/distmesh/
+- Latest DistMesh v1.2 version: https://github.com/popersson/DistMesh
 
 
 ### Add paths in MATLAB
