@@ -212,6 +212,8 @@ Then run:
 WaterRemoval_OffTarget
 ```
 
+The off-target script uses the baseline canal effective pressure `N_canal = 50 kPa`, and a localized Gaussian basal-strength perturbation by `N_wfblip = 1333 Pa` over a spatial length scale `delta = 10 m`.
+
 For each offset, update the matching diagnostic variable names near the bottom of the script, for example:
 
 ```matlab
@@ -258,7 +260,12 @@ Although input and output `.mat` files are provided for all considered cases, we
 
 ## Citation and Acknowledgment
 
-- Ortholine v1.0 developers. Please cite the associated manuscript when available. The original Ortholine v1.0 repository is: https://github.com/coopere/InstituteIceStream2D
+- The coupled thermomechanical/free-boundary model is adapted from Ortholine v1.0:
+  ```text
+  Suckale, J. and Elsworth, C. W.: An antiplane strain model for evaluating shear-margin stability (Ortholine v1.0), EGUsphere [preprint], https://doi.org/10.5194/egusphere-2026-67, 2026.
+  ```
+  Original Ortholine v1.0 repository: https://github.com/coopere/InstituteIceStream2D
+- For use of this modified hydrology/intervention code, please also cite the associated basal-anchoring manuscript once available.
 - CVX optimization toolbox developers
 - distmesh2d developers
 - cbrewer2 developers
