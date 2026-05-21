@@ -275,9 +275,8 @@ f_therm = 2*tau_E.*epsilon_E;
 k1 = 9.828; %k1: conductivity preexponential[W/m*K]
 k2 = 5.7; %k2: conductivity postexponential[1/K]
 k = k1*exp(-k2*1e-3.*T);
-%tau_T =@(y) (55./(max(xy(:,2))-y.*heaviside((900+dy/2) - y))).*heaviside((900+dy/2) - y);
 
-tau_T =@(y) (60./(max(xy(:,2))-y.*heaviside((900+dy/2) - y))).*heaviside((900+dy/2) - y); % yes, gives temperate bed
+tau_T =@(y) (60./(max(xy(:,2))-y.*heaviside((900+dy/2) - y))).*heaviside((900+dy/2) - y);
 
 F_therm = zeros(1,nN);
 for E = 1:nE  % integration over each element
