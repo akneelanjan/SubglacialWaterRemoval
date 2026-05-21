@@ -1,7 +1,5 @@
 # Subglacial Water Removal
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxxx.svg)](https://doi.org/10.5281/zenodo.20128320)
-
 This repository contains MATLAB code for simulating how localized water removal from the subglacial drainage system modifies basal drag and glacier speed for an idealized mountain glacier sliding through a hard-rock valley with sediment accumulated in the topographic low. The code builds on the coupled thermomechanical free-boundary model of Ortholine v1.0 and implements mixed-bed drag and hydrology-informed basal-strength parameterizations for different subglacial drainage modes.
 
 Water removal is tested in two scenarios:
@@ -25,7 +23,7 @@ The recommended workflow is:
 ### Executable scripts
 
 - `WaterRemoval_OnTarget.m`  
-  Main script for on-target flowrate-reduction experiments. It loads one drainage-mode parameter file from `InputParameterFiles/`, solves the coupled thermomechanical model, and saves the result as `HighRes_<modeCase>.mat` in `ResultsMatFiles/`.
+  Main script for on-target flowrate-reduction experiments. It loads one drainage-mode parameter file from `InputParameterFiles/`, solves the coupled thermomechanical model, and saves the result as `TempBed_<modeCase>.mat` in `ResultsMatFiles/`.
 
 - `WaterRemoval_OffTarget.m`  
   Main script for off-target flux-reduction experiments near a sedimentary canal. It compares different offsets by changing the suction location `Xsuction`.
@@ -33,8 +31,8 @@ The recommended workflow is:
 - `WaterRemoval_OnTarget_Only1CentralCanal.m`  
   Optional test script for an on-target case with only one central canal.
 
-- `FormalFigure2Plotting_SIFigures.m`  
-  Plotting script for the on-target drainage-mode comparison figures.
+- `FormalFigurePlotting_Fig2Main_SIFigs.m`  
+  Plotting script for the on-target water removal comparison figures across drainage modes.
 
 - `FormalFigure3PlottingOffTarget.m`  
   Plotting script for the off-target spatial-imprecision figure.
@@ -183,7 +181,7 @@ WaterRemoval_OnTarget
 The script generates the mesh, solves the coupled thermomechanical model, plots the 2D ice-speed field, surface-speed profile, temperature field, and basal-drag profile, and constructs an output filename:
 
 ```matlab
-filename = fullfile("ResultsMatFiles","HighRes_"+modeCase+".mat");
+filename = fullfile("ResultsMatFiles","TempBed_"+modeCase+".mat");
 ```
 
 To save a regenerated result, make sure the final `save(filename)` command is active.
@@ -219,14 +217,14 @@ The off-target script uses the baseline canal effective pressure `N_canal = 50 k
 For each offset, update the matching diagnostic variable names near the bottom of the script, for example:
 
 ```matlab
-IceFluxXSuction1010 = trapz(x_surf,u_surf);
+IceFluxYSuction1010 = trapz(x_surf,u_surf);
 basaltauc_Canal50kPaY1010 = basal_tau_c_specific;
 ```
 
 The output filename is constructed as:
 
 ```matlab
-filename = fullfile("ResultsMatFiles","OffTarget_Canal50kPa_Blip1333Pa_XSuction"+string(Xsuction)+".mat");
+filename = fullfile("ResultsMatFiles","OffTarget_Canal50kPa_Blip1333Pa_YSuction"+string(Xsuction)+".mat");
 ```
 
 To save a regenerated result, make sure the final `save(filename)` command is active.
@@ -236,7 +234,7 @@ To save a regenerated result, make sure the final `save(filename)` command is ac
 After the relevant output `.mat` files exist in `ResultsMatFiles/`, run:
 
 ```matlab
-FormalFigure2Plotting_SIFigures
+FormalFigurePlotting_Fig2Main_SIFigs
 FormalFigure3PlottingOffTarget
 ```
 
