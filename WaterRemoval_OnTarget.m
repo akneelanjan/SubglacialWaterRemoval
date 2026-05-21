@@ -63,7 +63,7 @@ clear all; clc;
 addpath('DistMesh-main')
 addpath(fullfile('DistMesh-main','src'));
 addpath(fullfile('DistMesh-main','examples'));
-fprintf('DistMesh paths added.\n');
+fprintf('DistMesh paths added.\n'); 
 
 % cbrewer2
 addpath('cbrewer2')
@@ -75,13 +75,13 @@ load iceColorMap.mat
 
 %% On-Target flowrate reduction in Canal
 % Q = 0.005 m^3/s, N_c = 50 kPa --> Baseline
-%load(fullfile("InputParameterFiles","Canal_50kPa.mat"));
+load(fullfile("InputParameterFiles","Canal_50kPa.mat"));
 
 % Q = 0.004 m^3/s, N_c = 100 kPa
 %load(fullfile("InputParameterFiles","Canal_100kPa.mat"));
 
 % Q = 0.0025 m^3/s, N_c = 150 kPa
-load(fullfile("InputParameterFiles","Canal_150kPa.mat"));
+%load(fullfile("InputParameterFiles","Canal_150kPa.mat"));
 
 % Q = 0.002 m^3/s, N_c = 200 kPa
 %load(fullfile("InputParameterFiles","Canal_200kPa.mat"));
@@ -275,7 +275,9 @@ f_therm = 2*tau_E.*epsilon_E;
 k1 = 9.828; %k1: conductivity preexponential[W/m*K]
 k2 = 5.7; %k2: conductivity postexponential[1/K]
 k = k1*exp(-k2*1e-3.*T);
-tau_T =@(y) (55./(max(xy(:,2))-y.*heaviside((900+dy/2) - y))).*heaviside((900+dy/2) - y);
+%tau_T =@(y) (55./(max(xy(:,2))-y.*heaviside((900+dy/2) - y))).*heaviside((900+dy/2) - y);
+
+tau_T =@(y) (60./(max(xy(:,2))-y.*heaviside((900+dy/2) - y))).*heaviside((900+dy/2) - y); % yes, gives temperate bed
 
 F_therm = zeros(1,nN);
 for E = 1:nE  % integration over each element
@@ -396,5 +398,5 @@ legend
 
 %% Save results to .mat file
 filepath = "ResultsMatFiles";
-filename = fullfile(filepath,"HighRes_"+modeCase+".mat");
-%save(filename)
+filename = fullfile(filepath,"TempBed_"+modeCase+".mat");
+save(filename)

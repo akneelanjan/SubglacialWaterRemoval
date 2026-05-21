@@ -71,7 +71,7 @@ load iceColorMap.mat
 
 %% Site of Off-Target Flux Reduction in water film
 
-Xsuction = 1010; % [m]
+Xsuction = 1100; % [m]
 
 % choose one among: 1010 m, 1020 m, 1050 m, 1100 m
 
@@ -89,7 +89,7 @@ g = 9.8;
 
 % bedrock = 10 kPa
 % downstream slope
-alpha = 0.0275; % for Canal
+alpha = 0.027; % for Canal
 
 f = rho*g*sin(alpha); % Gravitational stresses [Pa]
 
@@ -257,7 +257,7 @@ f_therm = 2*tau_E.*epsilon_E;
 k1 = 9.828; %k1: conductivity preexponential[W/m*K]
 k2 = 5.7; %k2: conductivity postexponential[1/K]
 k = k1*exp(-k2*1e-3.*T);
-tau_T =@(y) (55./(max(xy(:,2))-y.*heaviside((900+dy/2) - y))).*heaviside((900+dy/2) - y);
+tau_T =@(y) (60./(max(xy(:,2))-y.*heaviside((900+dy/2) - y))).*heaviside((900+dy/2) - y);
 
 F_therm = zeros(1,nN);
 for E = 1:nE  % integration over each element
@@ -384,30 +384,30 @@ xlabel("Lateral direction, y [m]", FontSize=16)
 ylabel("Basal drag [kPa]", FontSize=16)
 legend
 %% Compute AUC of Ice Surface Speed profile for each case and save it
-% variable naming format: IceFluxXSuctionxxxx 
+% variable naming format: IceFluxYSuctionxxxx 
 % where xxxx = 1010 or 1020 or 1050 or 1100
 
-IceFluxXSuction1010 = trapz(x_surf,u_surf); % for Xsuction = 1010 m
+%IceFluxYSuction1010 = trapz(x_surf,u_surf); % for Xsuction = 1010 m
 
-%IceFluxXSuction1020 = trapz(x_surf,u_surf); % for Xsuction = 1020 m
+%IceFluxYSuction1020 = trapz(x_surf,u_surf); % for Xsuction = 1020 m
 
-%IceFluxXSuction1050 = trapz(x_surf,u_surf); % for Xsuction = 1050 m
+%IceFluxYSuction1050 = trapz(x_surf,u_surf); % for Xsuction = 1050 m
 
-%IceFluxXSuction1100 = trapz(x_surf,u_surf); % for Xsuction = 1100 m
+IceFluxYSuction1100 = trapz(x_surf,u_surf); % for Xsuction = 1100 m
 
 %% Save the Basal Drag Profile for each case of Off-Target flux reduction
 % variable naming format: basaltauc_Canal50kPaYxxxx 
 % where xxxx = 1010 or 1020 or 1050 or 1100
 
-basaltauc_Canal50kPaY1010 = basal_tau_c_specific; % for Xsuction = 1010 m
+%basaltauc_Canal50kPaY1010 = basal_tau_c_specific; % for Xsuction = 1010 m
 
 %basaltauc_Canal50kPaY1020 = basal_tau_c_specific; % for Xsuction = 1020 m
 
 %basaltauc_Canal50kPaY1050 = basal_tau_c_specific; % for Xsuction = 1050 m
 
-%basaltauc_Canal50kPaY1100 = basal_tau_c_specific; % for Xsuction = 1100 m
+basaltauc_Canal50kPaY1100 = basal_tau_c_specific; % for Xsuction = 1100 m
 
 %% Save to .mat file
 filepath = "ResultsMatFiles";
-filename = fullfile(filepath,"OffTarget_Canal50kPa_Blip1333Pa_XSuction"+string(Xsuction)+".mat");
-%save(filename)
+filename = fullfile(filepath,"OffTarget_Canal50kPa_Blip1333Pa_YSuction"+string(Xsuction)+".mat");
+save(filename)

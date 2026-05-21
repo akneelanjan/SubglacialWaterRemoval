@@ -8,8 +8,10 @@ surfacespeed = cbrewer2('seq','Blues',5);
 basalstrength = cbrewer2('seq','Blues',5);
 
 %%
-alpha = 0.0275; % for Canal
-%alpha = 0.028; % for wider Center Canal
+alpha = 0.027; % for Canal
+%alpha = 0.0275; % for Wider central Canal scenarios
+%alpha = 0.026; % for only 1 central Canal scenarios
+
 Q = '0.005'; % Canal flowrate [m^3/s]
 
 sed_l = 0.8e3; % Rock-sediment interface on the left

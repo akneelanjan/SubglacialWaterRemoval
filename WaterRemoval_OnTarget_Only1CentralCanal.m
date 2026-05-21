@@ -80,18 +80,9 @@ basalstrength = cbrewer2('seq','Blues',5);
 p = 4/3;
 rho = 900;
 g = 9.8;
-%alpha = 2.4E-3;
-%alpha = 0.05; % 
-%alpha = 0.04; % for R-channel
-%alpha = 0.025; % for Canal, Linked Cavity
-
-% bedrock = 50 kPa
-%alpha = 0.052; % for Canal
-%alpha = 0.051; % for Water film
 
 % bedrock = 10 kPa
-alpha = 0.0265; % for Canal
-%alpha = 0.0275; % for Water film
+alpha = 0.026; % for only 1 Central Canal
 
 f = rho*g*sin(alpha);
 
@@ -154,13 +145,13 @@ N_wf = 4e3; % Sediment Cohesion [Pa]
 
 % Canal
 N_infi = 4e3; % effective pressure far from canal [Pa]
-N_canal_center = 50e3; % [Pa] Center canal effective pressure corresponding to flowrates
+N_canal_center = 200e3; % [Pa] Center canal effective pressure corresponding to flowrates
 % Q_w = [0.005, 0.004, 0.002] [m^3/s] {no suction, 20% suction, 60% suction}
 gamma_center = 0.2; % spatial scale parameter for center Canal
 
-a = -0.118/1000; % [m/Pa] from Damsgaard et. al. 2017
-b = 4.6; % [m] from Damsgaard et. al. 2017
-W_max = a*N_infi + b;
+a_canal = -0.118/1000; % [m/Pa] from Damsgaard et. al. 2017
+b_canal = 4.6; % [m] from Damsgaard et. al. 2017
+W_max = a_canal*N_infi + b_canal;
 X_canal_center = 1e3;
 X_canal_sed_l = 0.8e3+20;
 X_canal_sed_r = 1.2e3-20;
@@ -171,7 +162,7 @@ tau_c =@(x,y,u) (heaviside(sed_l - x).*(Cf*N_bedrock).*abs(u) ...
                  ((N_canal_center-N_infi)*(1-erf(gamma_center*abs(x-X_canal_center)/W_max))+ ...
                  N_infi).*abs(u) ...
                  + heaviside(x - sed_r).*(Cf*N_bedrock).*abs(u) ...
-                 ).*heaviside(905 - y);
+                 ).*heaviside(900+dy/2 - y);
 % with speed multiplied
 
 %% Thermal Parameters and CVX Solver, simultaneously minimizing Mechanical and Thermal Energy Functionals
@@ -252,7 +243,7 @@ f_therm = 2*tau_E.*epsilon_E;
 k1 = 9.828; %k1: conductivity preexponential[W/m*K]
 k2 = 5.7; %k2: conductivity postexponential[1/K]
 k = k1*exp(-k2*1e-3.*T);
-tau_T =@(y) (55./(max(xy(:,2))-y.*heaviside((900+dy/2) - y))).*heaviside((900+dy/2) - y);
+tau_T =@(y) (60./(max(xy(:,2))-y.*heaviside((900+dy/2) - y))).*heaviside((900+dy/2) - y);
 
 F_therm = zeros(1,nN);
 for E = 1:nE  % integration over each element
@@ -377,6 +368,5 @@ xlabel("Lateral direction, y [m]", FontSize=16)
 ylabel("Basal drag [kPa]", FontSize=16)
 %% Save to .mat file
 filepath = "ResultsMatFiles";
-filename = fullfile(filepath,"HighRes_only1Canal_"+string(N_canal_center/1000)+"kPa.mat");
-
-%save(filename)
+filename = fullfile(filepath,"TempBed_only1CentralCanal_"+string(N_canal_center/1000)+"kPa.mat");
+save(filename)

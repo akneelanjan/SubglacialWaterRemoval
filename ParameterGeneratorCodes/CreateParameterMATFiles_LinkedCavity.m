@@ -8,7 +8,7 @@ surfacespeed = cbrewer2('seq','Blues',5);
 basalstrength = cbrewer2('seq','Blues',5);
 
 %%
-alpha = 0.028; % for Linked Cavity
+alpha = 0.0275; % for Linked Cavity
 Q = '0.010'; % Linked Cavity flowrate [m^3/s]
 
 sed_l = 0.8e3; % Rock-sediment interface on the left

@@ -5,31 +5,31 @@ addpath('cbrewer2')
 ResultsMatDir = "ResultsMatFiles";
 
 %% Load x-axis
-load(fullfile(ResultsMatDir,"OffTarget_HighRes_Canal50kPaY1000.mat"),"x_base");
+load(fullfile(ResultsMatDir,"OnTarget_Canal50kPa.mat"),"x_base");
 
 %% Load results for baseline, 20% on-target flowrate reduction, and 4 cases of off-target flux reduction
 
 %%% AUC of Ice Surface Speed Profiles
-load(fullfile(ResultsMatDir,"OffTarget_HighRes_Canal50kPaY1000.mat"),"IceFlux50kPaY1000");
-load(fullfile(ResultsMatDir,"OffTarget_HighRes_Canal100kPaY1000.mat"),"IceFlux100kPaY1000");
-load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_XSuction1010.mat"),"IceFluxXSuction1010");
-load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_XSuction1020.mat"),"IceFluxXSuction1020");
-load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_XSuction1050.mat"),"IceFluxXSuction1050");
-load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_XSuction1100.mat"),"IceFluxXSuction1100");
+load(fullfile(ResultsMatDir,"OnTarget_Canal50kPa.mat"),"IceFlux50kPaY1000");
+load(fullfile(ResultsMatDir,"OnTarget_Canal100kPa.mat"),"IceFlux100kPaY1000");
+load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_YSuction1010.mat"),"IceFluxYSuction1010");
+load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_YSuction1020.mat"),"IceFluxYSuction1020");
+load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_YSuction1050.mat"),"IceFluxYSuction1050");
+load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_YSuction1100.mat"),"IceFluxYSuction1100");
 
 %%% Basal Drag Profiles
-load(fullfile(ResultsMatDir,"OffTarget_HighRes_Canal50kPaY1000.mat"),"basaltauc_Canal50kPaY1000");
-load(fullfile(ResultsMatDir,"OffTarget_HighRes_Canal100kPaY1000.mat"),"basaltauc_Canal100kPaY1000");
-load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_XSuction1010.mat"),"basaltauc_Canal50kPaY1010");
-load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_XSuction1020.mat"),"basaltauc_Canal50kPaY1020");
-load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_XSuction1050.mat"),"basaltauc_Canal50kPaY1050");
-load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_XSuction1100.mat"),"basaltauc_Canal50kPaY1100");
+load(fullfile(ResultsMatDir,"OnTarget_Canal50kPa.mat"),"basaltauc_Canal50kPaY1000");
+load(fullfile(ResultsMatDir,"OnTarget_Canal100kPa.mat"),"basaltauc_Canal100kPaY1000");
+load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_YSuction1010.mat"),"basaltauc_Canal50kPaY1010");
+load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_YSuction1020.mat"),"basaltauc_Canal50kPaY1020");
+load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_YSuction1050.mat"),"basaltauc_Canal50kPaY1050");
+load(fullfile(ResultsMatDir,"OffTarget_Canal50kPa_Blip1333Pa_YSuction1100.mat"),"basaltauc_Canal50kPaY1100");
 
 
 %% Compute Ice Speed Reduction Efficiencies
 
 y_labels = [1000, 1010, 1020, 1050, 1100];
-reduction = [(IceFlux50kPaY1000 - IceFlux100kPaY1000), (IceFlux50kPaY1000 - IceFluxXSuction1010), (IceFlux50kPaY1000 - IceFluxXSuction1020), (IceFlux50kPaY1000 - IceFluxXSuction1050), (IceFlux50kPaY1000 - IceFluxXSuction1100)];
+reduction = [(IceFlux50kPaY1000 - IceFlux100kPaY1000), (IceFlux50kPaY1000 - IceFluxYSuction1010), (IceFlux50kPaY1000 - IceFluxYSuction1020), (IceFlux50kPaY1000 - IceFluxYSuction1050), (IceFlux50kPaY1000 - IceFluxYSuction1100)];
 
 blue = cbrewer2('seq','Blues',5);
 reds = cbrewer2('seq','Reds',6);
