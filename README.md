@@ -1,6 +1,6 @@
 # Subglacial Water Removal
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20128320.svg)](https://doi.org/10.5281/zenodo.20324378)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20324378.svg)](https://doi.org/10.5281/zenodo.20324378)
 
 This repository contains MATLAB code for simulating how localized water removal from the subglacial drainage system modifies basal drag and glacier speed for an idealized mountain glacier sliding through a hard-rock valley with sediment accumulated in the topographic low. The code builds on the coupled thermomechanical free-boundary model of Ortholine v1.0 and implements mixed-bed drag and hydrology-informed basal-strength parameterizations for different subglacial drainage modes.
 
