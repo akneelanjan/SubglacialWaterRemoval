@@ -75,7 +75,7 @@ load iceColorMap.mat
 
 %% On-Target flowrate reduction in Canal
 % Q = 0.005 m^3/s, N_c = 50 kPa --> Baseline
-% load(fullfile("InputParameterFiles","Canal_50kPa.mat"));
+%load(fullfile("InputParameterFiles","Canal_50kPa.mat"));
 
 % Q = 0.004 m^3/s, N_c = 100 kPa
 %load(fullfile("InputParameterFiles","Canal_100kPa.mat"));
@@ -87,7 +87,7 @@ load iceColorMap.mat
 %load(fullfile("InputParameterFiles","Canal_200kPa.mat"));
 
 
-% modeCase = "Canal_"+string(N_canal_center/1000)+"kPa";
+%modeCase = "Canal_"+string(N_canal_center/1000)+"kPa";
 %% On-Target flowrate reduction in the wider Center Canal
 % Q = 0.005 m^3/s, N_c = 50 kPa --> Baseline
 %load(fullfile("InputParameterFiles","CenterCanalWider_50kPa.mat"));
@@ -108,10 +108,10 @@ load iceColorMap.mat
 %load(fullfile("InputParameterFiles","RChannel_550kPa.mat"));
  
 % Q = 0.043 m^3/s, N_c = 520 kPa
-%load(fullfile("InputParameterFiles","RChannel_520kPa.mat"));
+load(fullfile("InputParameterFiles","RChannel_520kPa.mat"));
 
 
-%modeCase = "RChannel_"+string(N_ch/1000)+"kPa";
+modeCase = "RChannel_"+string(N_ch/1000)+"kPa";
 %% On-Target flowrate reduction in Linked Cavity
 % Q = 0.010 m^3/s, N_c = 250 kPa --> Baseline
 %load(fullfile("InputParameterFiles","LinkedCavity_250kPa.mat"));
@@ -128,14 +128,14 @@ load iceColorMap.mat
 % Q = 0.7Q_0 m^3/s, N_c = 4.44 kPa
 %load(fullfile("InputParameterFiles","WaterFilm_4444Pa.mat"));
 
-% Q = 0.5Q_0 m^3/s, N_c = 5 kPa
-load(fullfile("InputParameterFiles","WaterFilm_5000Pa.mat"));
+% Q = 0.5Q_0 m^3/s, N_c = 5.33 kPa
+%load(fullfile("InputParameterFiles","WaterFilm_5333Pa.mat"));
 
 % Q = 0.1Q_0 m^3/s, N_c = 8 kPa
 %load(fullfile("InputParameterFiles","WaterFilm_8000Pa.mat"));
 
 
-modeCase = "WaterFilm_"+string(floor(N_wfmod))+"Pa";
+%modeCase = "WaterFilm_"+string(floor(N_wfmod))+"Pa";
 %% cbrewer2
 icespeed = cbrewer2('seq','RdPu',100);
 icespeedmod3 = icespeed(1:90,:);
@@ -145,6 +145,8 @@ icespeedmod3 = icespeed(1:90,:);
 p = 4/3;
 rho = 900;
 g = 9.8;
+
+alpha = 0.027; % Same-slope comparison
 
 % bedrock = 10 kPa
 f = rho*g*sin(alpha);
@@ -397,5 +399,5 @@ legend
 
 %% Save results to .mat file
 filepath = "ResultsMatFiles";
-filename = fullfile(filepath,"TempBed_"+modeCase+".mat");
+filename = fullfile(filepath,"SameSlope_"+modeCase+".mat");
 save(filename)
