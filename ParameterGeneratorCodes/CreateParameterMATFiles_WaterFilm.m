@@ -9,7 +9,7 @@ basalstrength = cbrewer2('seq','Blues',5);
 
 %%
 alpha = 0.0265; % for Water Film
-Q = '0.5 Q_0'; % Water film flux [m^3/s]
+Q = 'Q_0'; % Water film flux [m^3/s]
 
 sed_l = 0.8e3; % Rock-sediment interface on the left
 sed_r = 1.2e3; % Rock-sediment interface on the right
@@ -36,7 +36,7 @@ X_canal_sed_l = 0.8e3+20; % Location of side canal on the left
 X_canal_sed_r = 1.2e3-20; % Location of side canal on the right
 
 % Water-film parameters
-N_wfmod = 5*N_wf/4; % Strength perturbation in Water Film [Pa]
+N_wfmod = N_wf; % Strength perturbation in Water Film [Pa]
 % N_wfmod = N_wf = 4 kPa for Baseline
 % N_wfmod = 10*N_wf/9 = 4444 Pa for 30% flowrate reduction
 % N_wfmod = 5*N_wf/4 = 5000 Pa for 50% flowrate reduction
