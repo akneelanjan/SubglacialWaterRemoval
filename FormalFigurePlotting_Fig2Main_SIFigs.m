@@ -76,7 +76,7 @@ addZoomInset(ax, [900 1100], [3.5 6], [0.06 0.35 0.32 0.55], ...
     'Arrow',  [1015 4.1 1015 4.9], ...
     'XTicks', [900 1000 1100], ...
     'YTicks', [4 5 6]);
-exportgraphics(gcf,'Fig2a.pdf','ContentType','vector');
+%exportgraphics(gcf,'Fig2a.pdf','ContentType','vector');
 
 %% Ice Surface Speed profiles Fig. 2 (b) water film
 figure;
@@ -1006,6 +1006,12 @@ setFontSize(14)
 xlabel("Lateral direction, y [m]", FontSize=16)
 ylabel("Basal drag [kPa]", FontSize=16)
 legend
+
+ax = gca;
+addZoomInset(ax, [900 1100], [3.5 6], [0.06 0.35 0.32 0.55], ...
+    'Arrow',  [1015 4.1 1015 4.9], ...
+    'XTicks', [900 1000 1100], ...
+    'YTicks', [4 5 6]);
 
 %% Ice Surface Speed profiles Fig. S7 (b) water film
 figure;
