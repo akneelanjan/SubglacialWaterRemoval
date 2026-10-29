@@ -8,7 +8,7 @@ surfacespeed = cbrewer2('seq','Blues',5);
 basalstrength = cbrewer2('seq','Blues',5);
 
 %%
-alpha = 0.0275; % for Linked Cavity
+alpha = 0.02372; % for Linked Cavity
 Q = '0.010'; % Linked Cavity flowrate [m^3/s]
 
 sed_l = 0.8e3; % Rock-sediment interface on the left
@@ -40,7 +40,7 @@ N_lc = 250e3; % Linked Cavity Effective Pressure [Pa]
 %250 kPa for 0.010 m3/s (Baseline), 500 kPa for 0.005 m3/s (50% flowrate reduction)
 
 L1 = 1e3; % [m] Location of Linked Cavity (center of the bed)
-sigma = 1; % [m] Spatial scale of Linked Cavity (scale of the Gaussian distribution for the local rise in basal strength)
+sigma = 2; % [m] Spatial scale of Linked Cavity (scale of the Gaussian distribution for the local rise in basal strength)
 
 % Basal-drag, tau_bed formulation as per Coulomb-Slip on hard-bedrock
 basal_tau_c =@(x,u) heaviside(sed_l - x).*(Cf*N_bedrock) ...
@@ -58,7 +58,7 @@ tau_c =@(x,y,u) (heaviside(sed_l - x).*(Cf*N_bedrock).*abs(u) ...
                  (N_canal_side-N_wf)*(1-erf(gamma_side*abs(x-X_canal_sed_r)/W_max))+ ...
                  N_wf).*abs(u) ...
                  + heaviside(x - sed_r).*(Cf*N_bedrock).*abs(u) ...
-                 ).*heaviside(905 - y);
+                 ).*heaviside(901 - y);
 % with speed multiplied
 
 

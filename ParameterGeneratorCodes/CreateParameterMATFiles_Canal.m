@@ -8,7 +8,9 @@ surfacespeed = cbrewer2('seq','Blues',5);
 basalstrength = cbrewer2('seq','Blues',5);
 
 %%
-alpha = 0.027; % for Canal
+alpha = 0.02383; % for Canal (corrected rheology, G = 100 mW/m^2, T_s = -5 C)
+
+%alpha = 0.027; % for Canal
 %alpha = 0.0275; % for Wider central Canal scenarios
 %alpha = 0.026; % for only 1 central Canal scenarios
 
@@ -57,7 +59,7 @@ tau_c =@(x,y,u) (heaviside(sed_l - x).*(Cf*N_bedrock).*abs(u) ...
                  (N_canal_center-N_infi)*(1-erf(gamma_center*abs(x-X_canal_center)/W_max))+ ...
                  (N_canal_side-N_infi)*(1-erf(gamma_side*abs(x-X_canal_sed_r)/W_max))+ ...
                  N_infi).*abs(u) ...
-                 + heaviside(x - sed_r).*(Cf*N_bedrock).*abs(u)).*heaviside(905-y);
+                 + heaviside(x - sed_r).*(Cf*N_bedrock).*abs(u)).*heaviside(901-y);
 % with speed multiplied
 
 % Ice surface speed plot legend color

@@ -8,8 +8,8 @@ surfacespeed = cbrewer2('seq','Blues',5);
 basalstrength = cbrewer2('seq','Blues',5);
 
 %%
-alpha = 0.046; % for R-Channel
-Q = '0.043'; % R-Channel flowrate [m^3/s]
+alpha = 0.04585; % for R-Channel
+Q = '0.086'; % R-Channel flowrate [m^3/s]
 
 sed_l = 0.8e3; % Rock-sediment interface on the left
 sed_r = 1.2e3; % Rock-sediment interface on the right
@@ -36,7 +36,7 @@ X_canal_sed_l = 0.8e3+20; % Location of side canal on the left
 X_canal_sed_r = 1.2e3-20; % Location of side canal on the right
 
 % R-Channel parameters
-N_ch = 520e3; % [Pa] R-Channel Effective Pressure
+N_ch = 550e3; % [Pa] R-Channel Effective Pressure
 
 % N_ch = {550,520} [kPa] corresponding to flowrates:
 % Q = {0.086,0.043} [m^3/s] (baseline, 50% flowrate reduction)
@@ -59,14 +59,14 @@ tau_c =@(x,y,u) (heaviside(sed_l - x).*(Cf*N_bedrock).*abs(u) ...
                   ((N_ch-N_wf)*exp(-abs(x-ch_loc1)/ch_decay)+N_wf)+ ...
                   (N_canal_side-N_infi)*(1-erf(gamma_side*abs(x-X_canal_sed_r)/W_max))).*abs(u) ...
                  + heaviside(x - sed_r).*(Cf*N_bedrock).*abs(u) ...
-                 ).*heaviside(905 - y);
+                 ).*heaviside(901 - y);
 % with speed multiplied
 
 % Ice surface speed plot legend color
-surfaceSpeedColor = surfacespeed(3,:);
+surfaceSpeedColor = surfacespeed(5,:);
 
 % Basal strength plot legend color
-basalStrengthColor = basalstrength(3,:);
+basalStrengthColor = basalstrength(5,:);
 
 %% save parameters in a file
 filename = fullfile("..","InputParameterFiles","RChannel_"+string(N_ch/1000)+"kPa.mat");
